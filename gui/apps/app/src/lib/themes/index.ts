@@ -3,6 +3,7 @@ import {
   type AppTheme,
   type BuiltInThemeId,
 } from "@cloudroom/domain";
+import { bamfThemeCss } from "./bamf";
 import { catppuccinThemeCss } from "./catppuccin";
 import { defaultThemeCss } from "./default";
 import { draculaThemeCss } from "./dracula";
@@ -14,6 +15,7 @@ const APP_THEME_STYLE_ELEMENT_ID = "bb-app-theme";
 export const APP_THEME_CSS_STORAGE_KEY = "bb.appThemeCss";
 
 const builtInThemeCss: Record<BuiltInThemeId, string> = {
+  bamf: bamfThemeCss,
   default: defaultThemeCss,
   nord: nordThemeCss,
   dracula: draculaThemeCss,
@@ -97,7 +99,7 @@ export function applyCachedAppThemeCss(): void {
     cached = null;
   }
   if (!cached) {
-    applyAppThemeCss(defaultThemeCss);
+    applyAppThemeCss(bamfThemeCss);
     return;
   }
   const style = getOrCreateStyleElement();

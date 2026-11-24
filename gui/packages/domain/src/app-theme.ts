@@ -5,6 +5,7 @@ import {
 } from "./code-theme.js";
 
 const builtInThemeIdSchema = z.enum([
+  "bamf",
   "default",
   "nord",
   "dracula",
@@ -21,7 +22,12 @@ interface BuiltInThemeMeta {
 }
 
 export const builtInThemes: readonly BuiltInThemeMeta[] = [
-  { id: "default", name: "Default", description: "The standard Cloudroom look" },
+  { id: "bamf", name: "BAMF blue", description: "The standard BAMF look" },
+  {
+    id: "default",
+    name: "Cloudroom green",
+    description: "The upstream Cloudroom look",
+  },
   { id: "nord", name: "Nord", description: "Cool, muted arctic blues" },
   {
     id: "dracula",
@@ -114,7 +120,7 @@ export const appThemeSelectionSchema = z.object({
 export type AppThemeSelection = z.infer<typeof appThemeSelectionSchema>;
 
 export const defaultAppTheme: AppTheme = {
-  themeId: "default",
+  themeId: "bamf",
   customCss: null,
   faviconColor: defaultFaviconColor,
   resolvedCodeTheme: defaultResolvedCodeTheme,
