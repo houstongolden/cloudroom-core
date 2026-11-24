@@ -29,3 +29,14 @@ Sign in to Claude later: `node run.mjs <id> 300 "sudo -iu cloudroom-agent claude
 API flow (`POST /v1/accounts/claude/login` then `/complete` with `code` + `state`) or an E2B PTY.
 
 Files: `install-core.sh` (install), `start.sh`/`probe.sh` (start + API probes), `harness.sh` (CLI installs).
+
+## Connecting the app (2026-11-24)
+
+- E2B already forwards the sandbox's loopback port, so core is reachable at `https://9840-<sandbox-id>.e2b.app`
+  with `CLOUDROOM_LISTEN` left at `127.0.0.1:9840`. Without the token it returns 401.
+- The app's local server refuses `POST /api/v1/cloudroom` from scripts and from a plain browser tab
+  (`caller_proof_required`). Only the Electron shell is trusted, so connect from the desktop app:
+  `cd gui/apps/desktop && node --conditions=source --import tsx scripts/run-electron-dev.mjs` (attaches to `pnpm dev`).
+- `node copy-token.mjs` puts the token on the clipboard and prints the URL; paste both into
+  Settings > Account > "Or connect your own Core".
+- E2B pauses the sandbox when its timeout ends; the URL stays the same after resume.
